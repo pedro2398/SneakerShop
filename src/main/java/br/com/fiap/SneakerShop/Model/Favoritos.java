@@ -1,14 +1,14 @@
 package br.com.fiap.SneakerShop.Model;
 
 public class Favoritos {
-    private Integer id;
+    private Long id;
     private Produto produto;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -23,7 +23,7 @@ public class Favoritos {
     public Favoritos() {
     }
 
-    public Favoritos(Integer id, Produto produto) {
+    public Favoritos(Long id, Produto produto) {
         this.id = id;
         this.produto = produto;
     }

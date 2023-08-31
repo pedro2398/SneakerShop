@@ -3,15 +3,15 @@ package br.com.fiap.SneakerShop.Model;
 import java.math.BigDecimal;
 
 public class Produto {
-    private Integer id;
+    private Long id;
     private String descricao;
     private BigDecimal preco;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
-
-    public void setId(Integer id) {
+    
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -35,8 +35,7 @@ public class Produto {
     public Produto() {
     }
 
-    public Produto(Integer id, String descricao, BigDecimal preco) {
-        this.id = id;
+    public Produto(String descricao, BigDecimal preco) {
         this.descricao = descricao;
         this.preco = preco;
     }
@@ -44,7 +43,6 @@ public class Produto {
     @Override
     public String toString() {
         return "Produto{" +
-                "id=" + id +
                 ", descricao='" + descricao + '\'' +
                 ", preco=" + preco +
                 '}';

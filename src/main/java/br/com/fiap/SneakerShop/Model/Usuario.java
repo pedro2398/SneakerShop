@@ -1,19 +1,19 @@
 package br.com.fiap.SneakerShop.Model;
 
 public class Usuario {
-    private Integer id;
+    private Long id;
     private String nome;
     private String email;
     private String senha;
-    private String Endereco;
+    private String endereco;
     private Carrinho carrinho;
     private Favoritos favoritos;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -42,11 +42,11 @@ public class Usuario {
     }
 
     public String getEndereco() {
-        return Endereco;
+        return endereco;
     }
 
     public void setEndereco(String endereco) {
-        Endereco = endereco;
+       this.endereco = endereco;
     }
 
     public Carrinho getCarrinho() {
@@ -68,12 +68,12 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(Integer id, String nome, String email, String senha, String endereco, Carrinho carrinho, Favoritos favoritos) {
+    public Usuario(Long id, String nome, String email, String senha, String endereco, Carrinho carrinho, Favoritos favoritos) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
-        Endereco = endereco;
+        this.endereco = endereco;
         this.carrinho = carrinho;
         this.favoritos = favoritos;
     }
@@ -85,7 +85,7 @@ public class Usuario {
                 ", nome='" + nome + '\'' +
                 ", email='" + email + '\'' +
                 ", senha='" + senha + '\'' +
-                ", Endereco='" + Endereco + '\'' +
+                ", Endereco='" + endereco + '\'' +
                 ", carrinho=" + carrinho +
                 ", favoritos=" + favoritos +
                 '}';

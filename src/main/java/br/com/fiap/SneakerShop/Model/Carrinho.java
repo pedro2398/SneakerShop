@@ -12,7 +12,7 @@ public class Carrinho {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    private Produto produto;
+    private long idProduto;
 
     public Long getId() {
         return id;
@@ -22,27 +22,27 @@ public class Carrinho {
         this.id = id;
     }
 
-    public Produto getProduto() {
-        return produto;
+    public Long getIdProduto() {
+        return idProduto;
     }
 
-    public void setProduto(Produto produto) {
-        this.produto = produto;
+    public void setIdProduto(Long idProduto) {
+        this.idProduto = idProduto;
     }
 
     public Carrinho() {
     }
 
-    public Carrinho(Long id, Produto produto) {
+    public Carrinho(Long id, long idProduto) {
         this.id = id;
-        this.produto = produto;
+        this.idProduto = idProduto;
     }
 
     @Override
     public String toString() {
         return "Carrinho{" +
                 "id=" + id +
-                ", produto=" + produto +
+                ", idProduto=" + idProduto +
                 '}';
     }
 }

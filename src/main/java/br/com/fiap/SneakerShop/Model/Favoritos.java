@@ -12,7 +12,7 @@ public class Favoritos {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Produto produto;
+    private Long idProduto;
 
     public Long getId() {
         return id;
@@ -22,27 +22,27 @@ public class Favoritos {
         this.id = id;
     }
 
-    public Produto getProduto() {
-        return produto;
+    public Long getIdProduto() {
+        return idProduto;
     }
 
-    public void setProduto(Produto produto) {
-        this.produto = produto;
+    public void setIdProduto(Long idProduto) {
+        this.idProduto = idProduto;
     }
 
     public Favoritos() {
     }
 
-    public Favoritos(Long id, Produto produto) {
+    public Favoritos(Long id, Long idProduto) {
         this.id = id;
-        this.produto = produto;
+        this.idProduto = idProduto;
     }
 
     @Override
     public String toString() {
         return "Favoritos{" +
                 "id=" + id +
-                ", produto=" + produto +
+                ", produto=" + idProduto +
                 '}';
     }
 }

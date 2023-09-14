@@ -20,9 +20,9 @@ public class Usuario {
 
     private String endereco;
 
-    private Carrinho carrinho;
+    private Long idCarrinho;
 
-    private Favoritos favoritos;
+    private long idFavoritos;
 
     public Long getId() {
         return id;
@@ -64,33 +64,33 @@ public class Usuario {
        this.endereco = endereco;
     }
 
-    public Carrinho getCarrinho() {
-        return carrinho;
+    public Long getIdCarrinho() {
+        return idCarrinho;
     }
 
-    public void setCarrinho(Carrinho carrinho) {
-        this.carrinho = carrinho;
+    public void setIdCarrinho(Long idCarrinho) {
+        this.idCarrinho = idCarrinho;
     }
 
-    public Favoritos getFavoritos() {
-        return favoritos;
+    public Long getIdFavoritos() {
+        return idFavoritos;
     }
 
-    public void setFavoritos(Favoritos favoritos) {
-        this.favoritos = favoritos;
+    public void setIdFavoritos(long idFavoritos) {
+        this.idFavoritos = idFavoritos;
     }
 
     public Usuario() {
     }
 
-    public Usuario(Long id, String nome, String email, String senha, String endereco, Carrinho carrinho, Favoritos favoritos) {
+    public Usuario(Long id, String nome, String email, String senha, String endereco, Long idCarrinho, Long idFavoritos) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
         this.endereco = endereco;
-        this.carrinho = carrinho;
-        this.favoritos = favoritos;
+        this.idCarrinho = idCarrinho;
+        this.idFavoritos = idFavoritos;
     }
 
     @Override
@@ -101,8 +101,8 @@ public class Usuario {
                 ", email='" + email + '\'' +
                 ", senha='" + senha + '\'' +
                 ", Endereco='" + endereco + '\'' +
-                ", carrinho=" + carrinho +
-                ", favoritos=" + favoritos +
+                ", carrinho=" + idCarrinho +
+                ", favoritos=" + idFavoritos +
                 '}';
     }
 }

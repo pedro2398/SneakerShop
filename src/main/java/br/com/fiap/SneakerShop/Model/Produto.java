@@ -2,9 +2,15 @@ package br.com.fiap.SneakerShop.Model;
 
 import java.math.BigDecimal;
 
+import jakarta.persistence.Entity;
+
+@Entity
 public class Produto {
+
     private Long id;
+
     private String descricao;
+    
     private BigDecimal preco;
 
     public Long getId() {

@@ -1,10 +1,13 @@
 package br.com.fiap.SneakerShop.Controllers;
 
 import br.com.fiap.SneakerShop.Model.Favoritos;
+import br.com.fiap.SneakerShop.Repository.FavoritosRepository;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,20 +24,21 @@ public class FavoritosController {
 
     Logger log = LoggerFactory.getLogger(getClass());
 
-    List<Favoritos> favoritos = new ArrayList<>();
+    @Autowired
+    FavoritosRepository repository;
 
     @GetMapping( "/favoritos" )
     public List<Favoritos> getFavoritos() {
         log.info("mostrando todos os favoritos");
         
-        return favoritos;
+        return repository.findAll();
     }
 
     @PostMapping( "/favoritos" )
     public ResponseEntity<Favoritos> createFavoritos(@RequestBody Favoritos favorito) {
         log.info("cadastrando favorito - " + favorito);
-        favorito.setId(favoritos.size() + 1L);
-        favoritos.add(favorito);
+        
+        repository.save(favorito);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(favorito);
     }
@@ -42,31 +46,16 @@ public class FavoritosController {
     @GetMapping( "/favoritos/{id}" )
     public ResponseEntity<Favoritos> getFavoritosId(@PathVariable Long id) {
         log.info("mostrando favorito do id " + id);
-        var favoritoEncontrado = favoritos
-                                 .stream()
-                                 .filter( (favorito) -> favorito.getId().equals(id) )
-                                 .findFirst();
         
-        if(favoritoEncontrado.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        return ResponseEntity.ok(favoritoEncontrado.get());
+        return ResponseEntity.ok(getFavById(id));
     }
 
     @DeleteMapping( "favoritos/{id}" )
     public ResponseEntity<Object> deleteFavoritos(@PathVariable Long id) {
         log.info("deletando favorito com id" + id);
-        var favoritoEncontrado = favoritos
-                                .stream()
-                                .filter( (favorito) -> favorito.getId().equals(id))
-                                .findFirst();
-
-        if(favoritoEncontrado.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        favoritos.remove(favoritoEncontrado.get());
+        
+        getFavById(id);
+        repository.deleteById(id);
 
         return ResponseEntity.noContent().build();
     }
@@ -74,19 +63,17 @@ public class FavoritosController {
     @PutMapping( "favoritos/{id}" )
     public ResponseEntity<Favoritos> alterFavoritoResponseEntity(@PathVariable Long id, @RequestBody Favoritos newFavorito) {
         log.info("alterando favorito com id " + id);
-        var favoritoEncontrado = favoritos
-                                 .stream()
-                                 .filter( (favorito) -> favorito.getId().equals(id) )
-                                 .findFirst();
-
-        if(favoritoEncontrado.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        favoritos.remove(favoritoEncontrado.get());
+        
+        getFavById(id);
         newFavorito.setId(id);
-        favoritos.add(newFavorito);
+        repository.save(newFavorito);
 
         return ResponseEntity.ok(newFavorito);
+    }
+
+    private Favoritos getFavById(Long id) {
+        return repository.findById(id).orElseThrow( () -> {
+            return new RuntimeException();
+        } );
     }
 }

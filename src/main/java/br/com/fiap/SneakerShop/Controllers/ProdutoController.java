@@ -62,8 +62,8 @@ public class ProdutoController {
     @PutMapping( "/produto/{id}" )
     public ResponseEntity<Produto> alterProduto(@PathVariable Long id, @RequestBody Produto newProduto) {
         log.info("alterando produto com id " + id);
+        
         getProdById(id);
-
         newProduto.setId(id);
         repository.save(newProduto);
 

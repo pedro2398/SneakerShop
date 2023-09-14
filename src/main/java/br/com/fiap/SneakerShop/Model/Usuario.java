@@ -1,9 +1,11 @@
 package br.com.fiap.SneakerShop.Model;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+@Entity
 public class Usuario {
 
     @Id

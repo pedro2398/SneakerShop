@@ -1,12 +1,13 @@
 package br.com.fiap.SneakerShop.Controllers;
 
 import br.com.fiap.SneakerShop.Model.Carrinho;
+import br.com.fiap.SneakerShop.Repository.CarrinhoRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,20 +24,21 @@ public class CarrinhoController {
 
     Logger log = LoggerFactory.getLogger(getClass());
 
-    List<Carrinho> carrinhos = new ArrayList<>();
+    @Autowired
+    CarrinhoRepository repository;
 
     @GetMapping( "/carrinho" )
     public List<Carrinho> getCarrinho() {
         log.info("mostrando todos os carrinhos");
         
-        return carrinhos;
+        return repository.findAll();
     }
 
     @PostMapping( "/carrinho" )
     public ResponseEntity<Carrinho> createCarrinho(@RequestBody Carrinho carrinho) {
         log.info("cadastrando carrinho - " + carrinho);
-        carrinho.setId(carrinhos.size() + 1L);
-        carrinhos.add(carrinho);
+        
+        repository.save(carrinho);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(carrinho);
     }
@@ -44,31 +46,16 @@ public class CarrinhoController {
     @GetMapping( "/carrinho/{id}" )
     public ResponseEntity<Carrinho> getCarrinhoId(@PathVariable Long id) {
         log.info("mostrando carrinho do id " + id);
-        var carrinhoEncontrado = carrinhos
-                                 .stream()
-                                 .filter( (carrinho) -> carrinho.getId().equals(id) )
-                                 .findFirst();
         
-        if(carrinhoEncontrado.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        return ResponseEntity.ok(carrinhoEncontrado.get());
+        return ResponseEntity.ok(getCarById(id));
     }
 
     @DeleteMapping( "carrinho/{id}" )
     public ResponseEntity<Object> deleteCarrinho(@PathVariable Long id) {
         log.info("deletando carrinho com id" + id);
-        var carrinhoEncontrado = carrinhos
-                                .stream()
-                                .filter( (carrinho) -> carrinho.getId().equals(id))
-                                .findFirst();
-
-        if(carrinhoEncontrado.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        carrinhos.remove(carrinhoEncontrado.get());
+        
+        getCarById(id);
+        repository.deleteById(id);
 
         return ResponseEntity.noContent().build();
     }
@@ -76,18 +63,18 @@ public class CarrinhoController {
     @PutMapping( "carrinho/{id}" )
     public ResponseEntity<Carrinho> alterCarrinho(@PathVariable Long id, @RequestBody Carrinho newCarrinho) {
         log.info("alterando carrinho com id " + id);
-        var carrinhoEncontrado = carrinhos
-                                .stream()
-                                .filter( (carrinho) -> carrinho.getId().equals(id))
-                                .findFirst();
-
-        if(carrinhoEncontrado.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        carrinhos.remove(carrinhoEncontrado.get());
+        
+        getCarById(id);
         newCarrinho.setId(id);
+        repository.save(newCarrinho);
 
         return ResponseEntity.ok(newCarrinho);
     }
+
+    private Carrinho getCarById(Long id) {
+        return repository.findById(id).orElseThrow( () -> {
+            return new RuntimeException();
+        } );
+    }
+    
 }

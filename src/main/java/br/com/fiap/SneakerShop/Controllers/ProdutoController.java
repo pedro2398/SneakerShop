@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import br.com.fiap.SneakerShop.Repository.ProdutoRepository;
+import jakarta.validation.Valid;
 
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class ProdutoController {
     }
 
     @PostMapping( "/produto" )
-    public ResponseEntity<Produto> createProduto(@RequestBody Produto produto) {
+    public ResponseEntity<Produto> createProduto(@RequestBody @Valid Produto produto) {
         log.info("casdastrando Produto - " + produto);
         
         repository.save(produto);

@@ -2,6 +2,7 @@ package br.com.fiap.SneakerShop.Controllers;
 
 import br.com.fiap.SneakerShop.Model.Carrinho;
 import br.com.fiap.SneakerShop.Repository.CarrinhoRepository;
+import jakarta.validation.Valid;
 
 import java.util.List;
 
@@ -35,7 +36,7 @@ public class CarrinhoController {
     }
 
     @PostMapping( "/carrinho" )
-    public ResponseEntity<Carrinho> createCarrinho(@RequestBody Carrinho carrinho) {
+    public ResponseEntity<Carrinho> createCarrinho(@RequestBody @Valid Carrinho carrinho) {
         log.info("cadastrando carrinho - " + carrinho);
         
         repository.save(carrinho);
@@ -61,7 +62,7 @@ public class CarrinhoController {
     }
 
     @PutMapping( "carrinho/{id}" )
-    public ResponseEntity<Carrinho> alterCarrinho(@PathVariable Long id, @RequestBody Carrinho newCarrinho) {
+    public ResponseEntity<Carrinho> alterCarrinho(@PathVariable Long id, @RequestBody @Valid Carrinho newCarrinho) {
         log.info("alterando carrinho com id " + id);
         
         getCarById(id);

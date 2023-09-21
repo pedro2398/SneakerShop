@@ -2,6 +2,7 @@ package br.com.fiap.SneakerShop.Controllers;
 
 import br.com.fiap.SneakerShop.Model.Usuario;
 import br.com.fiap.SneakerShop.Repository.UsuarioRepository;
+import jakarta.validation.Valid;
 
 import org.slf4j.Logger;
 
@@ -35,7 +36,7 @@ public class UsuarioController {
     }
 
     @PostMapping( "/usuario" )
-    public ResponseEntity<Usuario> createUsuario(@RequestBody Usuario usuario) {
+    public ResponseEntity<Usuario> createUsuario(@RequestBody @Valid Usuario usuario) {
         log.info("cadastrando usuario - " + usuario);
        
         repository.save(usuario);
@@ -61,7 +62,7 @@ public class UsuarioController {
     } 
 
     @PutMapping( "/usuario/{id}" )
-    public ResponseEntity<Usuario> alterUsuario(@PathVariable Long id, @RequestBody Usuario newUsuario) {
+    public ResponseEntity<Usuario> alterUsuario(@PathVariable Long id, @RequestBody @Valid Usuario newUsuario) {
         log.info("alterando usuario com id " + id);
 
         getUsuarioById(id);

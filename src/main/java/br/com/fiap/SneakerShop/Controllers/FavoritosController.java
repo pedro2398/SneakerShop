@@ -2,6 +2,7 @@ package br.com.fiap.SneakerShop.Controllers;
 
 import br.com.fiap.SneakerShop.Model.Favoritos;
 import br.com.fiap.SneakerShop.Repository.FavoritosRepository;
+import jakarta.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +36,7 @@ public class FavoritosController {
     }
 
     @PostMapping( "/favoritos" )
-    public ResponseEntity<Favoritos> createFavoritos(@RequestBody Favoritos favorito) {
+    public ResponseEntity<Favoritos> createFavoritos(@RequestBody @Valid Favoritos favorito) {
         log.info("cadastrando favorito - " + favorito);
         
         repository.save(favorito);
@@ -61,7 +62,7 @@ public class FavoritosController {
     }
 
     @PutMapping( "favoritos/{id}" )
-    public ResponseEntity<Favoritos> alterFavoritoResponseEntity(@PathVariable Long id, @RequestBody Favoritos newFavorito) {
+    public ResponseEntity<Favoritos> alterFavoritoResponseEntity(@PathVariable Long id, @RequestBody @Valid Favoritos newFavorito) {
         log.info("alterando favorito com id " + id);
         
         getFavById(id);

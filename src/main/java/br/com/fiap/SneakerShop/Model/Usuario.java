@@ -30,4 +30,10 @@ public class Usuario {
 
     @NotBlank
     private String endereco;
+    
+    @NotBlank
+    private Long idCarrinho;
+
+    @NotBlank
+    private long idFavoritos;
 }
